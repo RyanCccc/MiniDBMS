@@ -19,4 +19,9 @@ public class Value {
 		}
 		return null;
 	}
+	
+	@Override
+	public String toString(){
+		return getValue().toString();
+	}
 }

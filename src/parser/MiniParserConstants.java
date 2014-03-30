@@ -155,8 +155,8 @@ public interface MiniParserConstants {
     "<DECIMAL_LITERAL>",
     "<STRING_LITERAL>",
     "\";\"",
-    "\"(\"",
     "\",\"",
+    "\"(\"",
     "\")\"",
   };
 

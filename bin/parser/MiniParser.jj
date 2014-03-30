@@ -104,7 +104,8 @@ Command Command():
 		< KW_CREATE >
 		(
 		  ret = createTable()
-		| ret = createUser()	 
+		| ret = createUser()
+		| ret = createSubschema() 
 		  
 		)
 	|	ret = DropTable()
@@ -113,8 +114,9 @@ Command Command():
 	
 	|	< KW_DELETE >
 		(
-		  {		    System.out.println("Delete");
-		  }
+			ret = delete()
+		|	ret = deleteUser()
+		|	ret = deleteSubschema()
 		)
 	|	ret = Update()
 	
@@ -126,6 +128,20 @@ Command Command():
 		)
 	) ";" < EOF >
 	{ return ret; }
+}
+
+//Create Subschema
+CreateSubschemaCommand createSubschema():
+{
+	String tableName;
+	List<String> attrNames = new ArrayList<String>();
+	String attrName;
+}
+{
+	< KW_SUBSCHEMA > ( tableName = getTokenImage() )
+	( ( attrName = getTokenImage() ) { attrNames.add(attrName); } )
+	( "," ( attrName = getTokenImage() ) { attrNames.add(attrName); } )*
+	{ return new CreateSubschemaCommand(tableName, attrNames); }
 }
 
 //Create User
@@ -229,6 +245,39 @@ ForeignKey parseForeignKey():
 	( refAttrName = getTokenImage() )
 	")"
 	{ return new ForeignKey(refTableName, localAttrName, refAttrName); }}
+
+//Delete
+DeleteCommand delete():
+{
+	String tableName;
+	String condition = "";
+}
+{
+	< KW_FROM >
+	( tableName = getTokenImage() )
+	( < KW_WHERE > ( condition = Expression() ) )?
+	{ return new DeleteCommand(tableName, condition); }
+}
+
+//Delete User
+DeleteUserCommand deleteUser():
+{
+	String userName;
+}
+{
+	< KW_USER > ( userName = getTokenWithCase() )
+	{ return new DeleteUserCommand(userName); }
+}
+
+//Delete subschema
+DeleteSubschemaCommand deleteSubschema():
+{
+	String tableName;
+}
+{
+	< KW_SUBSCHEMA > ( tableName = getTokenImage() )
+	{ return new DeleteSubschemaCommand(tableName); }
+}
 
 //Drop table
 DropTableCommand DropTable():

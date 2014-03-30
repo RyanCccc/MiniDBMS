@@ -25,4 +25,15 @@ public class Schema {
 		}
 		return foundKey;
 	}
+	
+	public int getIndexByAttrName(String attrName)
+	{
+		for(int i=0; i<this.attributes.size(); i++)
+		{
+			if (this.attributes.get(i).name.equals(attrName)) {
+				return i;
+			}
+		}
+		return -1;
+	}
 }

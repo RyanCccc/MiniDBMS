@@ -51,7 +51,15 @@ public class CreateTableCommand extends Command {
 				throw new ParseException("No Referred attributes " + foreignKey.refAttrName + " for foreign key"+foreignKey.localAttrName);
 			}
 		}
+		for(Schema schema : DBManager.getDBManager().schemas)
+		{
+			if (schema.tableName.equals(this.tableName)) {
+				throw new ParseException("Table already exists");
+			}
+		}
 		Schema schema = new Schema(this.tableName, this.attributes, this.primaryKeys, this.foreignKeys);
+		Table table = new Table(this.tableName);
 		DBManager.getDBManager().schemas.add(schema);
+		DBManager.getDBManager().tables.add(table);
 	}
 }

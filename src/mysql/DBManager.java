@@ -27,4 +27,16 @@ public class DBManager {
 		}
 		return null;
 	}
+	
+	public Table getTable(String tableName)
+	{
+		for(Table table : this.tables)
+		{
+			if (table.tableName.equals(tableName)) {
+				return table;
+			}
+		}
+		return null;
+	}
+	
 }

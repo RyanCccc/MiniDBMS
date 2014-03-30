@@ -39,7 +39,7 @@ private int jjMoveStringLiteralDfa0_0()
       case 33:
          return jjMoveStringLiteralDfa1_0(0x20000000000L);
       case 40:
-         jjmatchedKind = 51;
+         jjmatchedKind = 52;
          return jjMoveNfa_0(0, 0);
       case 41:
          jjmatchedKind = 53;
@@ -51,7 +51,7 @@ private int jjMoveStringLiteralDfa0_0()
          jjmatchedKind = 36;
          return jjMoveNfa_0(0, 0);
       case 44:
-         jjmatchedKind = 52;
+         jjmatchedKind = 51;
          return jjMoveNfa_0(0, 0);
       case 45:
          jjmatchedKind = 37;
@@ -1045,7 +1045,7 @@ public static final String[] jjstrLiteralImages = {
 null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
 null, null, null, null, null, null, null, null, null, "\53", "\55", "\52", "\57", 
 "\75", "\41\75", "\74", "\76", "\74\75", "\76\75", null, null, null, null, "\73", 
-"\50", "\54", "\51", };
+"\54", "\50", "\51", };
 
 /** Lexer state names. */
 public static final String[] lexStateNames = {
