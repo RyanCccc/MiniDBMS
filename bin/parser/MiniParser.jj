@@ -1,0 +1,207 @@
+options {
+	JAVA_UNICODE_ESCAPE = true;
+	STATIC = false;
+}
+PARSER_BEGIN(MiniParser)
+
+	package parser;
+	
+	import java.util.*;
+	import mysql.*;
+
+	public class MiniParser {
+
+	}
+PARSER_END(MiniParser)
+
+// Lexical definitions --------------------------------------------------------
+
+// whitespace
+SKIP :
+{
+    <" "> | <"\t"> | <"\n"> | <"\f"> | <"\r">
+}
+
+// SQL keywords
+TOKEN [IGNORE_CASE]:
+{
+	< KW_AND: "AND" >
+|	< KW_OR: "OR" >
+|	< KW_CREATE: "CREATE" >
+|	< KW_CHECK: "CHECK" >
+|	< KW_PRIMARY: "PRIMARY" >
+|	< KW_FOREIGN: "FOREIGN" >
+|	< KW_KEY: "KEY" >
+|	< KW_REFERENCES: "REFERENCES" >
+|	< KW_DROP: "DROP" >
+|	< KW_TABLE: "TABLE" >
+|	< KW_SELECT: "SELECT" >
+|	< KW_FROM: "FROM" >
+|	< KW_WHERE: "WHERE" >
+|	< KW_INSERT: "INSERT" >
+|	< KW_INTO: "INTO" >
+|	< KW_VALUES: "VALUES" >
+|	< KW_DELETE: "DELETE" >
+|	< KW_UPDATE: "UPDATE" >
+|	< KW_SET: "SET" >
+|	< KW_HELP: "HELP" >
+|	< KW_TABLES: "TABLES" >
+|	< KW_DESCRIBE: "DESCRIBE" >
+|	< KW_QUIT: "QUIT" >
+
+|	< KW_USER: "USER" >
+|	< KW_USERA: "USER-A" >
+|	< KW_USERB: "USER-B" >
+|	< KW_SUBSCHEMA: "SUBSCHEMA" >
+
+|	< KW_INT: "int" >
+|	< KW_CHAR: "char" >
+|	< KW_DECIMAL: "decimal" >
+}
+
+// SQL symbols
+TOKEN:
+{
+	< SYM_PLUS: "+" >
+|	< SYM_MINUS: "-" >
+|	< SYM_STAR: "*" >
+|	< SYM_SLASH: "/" >
+|	< SYM_EQUAL: "=" >
+|	< SYM_EXCLEQUAL: "!=" >
+|	< SYM_LESS: "<" >
+|	< SYM_MORE: ">" >
+|	< SYM_LESSEQUAL: "<=" >
+|	< SYM_MOREEQUAL: ">=" >
+}
+
+// SQL identifiers
+TOKEN:
+{
+	< IDENTIFIER: ["a"-"z", "A"-"Z"](["_", "0"-"9", "a"-"z", "A"-"Z"])* >
+}
+
+// literals
+TOKEN:
+{
+	< INT_LITERAL: (["0"-"9"])+ >
+|	< DECIMAL_LITERAL: (["0"-"9"])*"."(["0"-"9"])+ >
+|	< STRING_LITERAL: "'"(~["\\", "'"]|"''"|"\\'")*"'" >
+	// does not allow escapes except for escaping a single quote
+}
+
+
+
+
+// Grammar --------------------------------------------------------------------
+Command Command():
+{
+	Command ret;
+	ret = new Command();
+	//System.out.println("Command()");
+}
+{
+	(
+		< KW_CREATE >
+		(
+		  ret = createTable()
+		  {
+		    System.out.println("Create");		  }
+		)
+		
+	
+	|	< KW_DELETE >
+		(
+		  {		    System.out.println("Delete");
+		  }
+		)
+	
+	|	< KW_HELP >
+		(
+		  {
+		    System.out.println("Help");
+		  }
+		)
+	) ";" < EOF >
+	{ return ret; }
+}
+
+CreateTableCommand createTable():
+{
+  	String tableName;
+	List<Attribute> attributes = new ArrayList<Attribute>();
+	List<String> primaryKeys = new ArrayList<String>();
+	List<ForeignKey> foreignKeys = new ArrayList<ForeignKey>();
+
+	Attribute attr;
+	ForeignKey foreignKey;
+
+	String name;
+}
+{
+  < KW_TABLE > ( tableName = getTokenImage() )
+	"("
+	(
+		(
+			( attr = parseAttr() ) ","
+			{ attributes.add(attr); }
+		)+
+		(
+			< KW_PRIMARY > < KW_KEY >
+			"("
+				( name = getTokenImage() { primaryKeys.add(name); } )
+				( "," name = getTokenImage() { primaryKeys.add(name); } )*
+			")"
+		)
+		(
+			"," ( foreignKey = parseForeignKey() )
+			{ foreignKeys.add(foreignKey); }
+		)*
+	)
+	")"
+	{ return new CreateTableCommand(tableName, attributes, primaryKeys, foreignKeys); }
+}
+
+Attribute parseAttr():
+{
+  	String name;
+	Attribute.Type type;
+	int length = -1;}
+{
+	( name = getTokenImage() )
+	(			
+		(
+			< KW_INT > { type = Attribute.Type.INT; }
+		)
+	|	(
+			< KW_CHAR > "(" < INT_LITERAL > { length=Integer.parseInt(token.image); } ")"
+			{ type = Attribute.Type.CHAR; } 
+		)
+	|	(
+			< KW_DECIMAL > { type = Attribute.Type.DECIMAL; }
+		)
+	)
+	{ return new Attribute(type, name, length); }}
+
+ForeignKey parseForeignKey():
+{
+  	String refTableName;
+	String localAttrName;
+	String refAttrName;}
+{
+  	< KW_FOREIGN > < KW_KEY >
+	"("
+	( localAttrName = getTokenImage() )
+	")"
+	< KW_REFERENCES >
+	( refTableName = getTokenImage() )
+	"("
+	( refAttrName = getTokenImage() )
+	")"
+	{ return new ForeignKey(refTableName, localAttrName, refAttrName); }}
+
+String getTokenImage():
+{}
+{
+	< IDENTIFIER >
+	{ return token.image.toUpperCase(); }
+}
