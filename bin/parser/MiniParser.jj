@@ -104,8 +104,8 @@ Command Command():
 		< KW_CREATE >
 		(
 		  ret = createTable()
-		  {
-		    System.out.println("Create");		  }
+		| ret = createUser()	 
+		  
 		)
 		
 	
@@ -125,8 +125,28 @@ Command Command():
 	{ return ret; }
 }
 
+//Create User
+CreateUserCommand createUser():
+{
+  	System.out.println("Create User");
+
+	String userName;
+	User.Type userType;
+}
+{
+	< KW_USER > ( userName = getTokenWithCase() )
+	(
+		< KW_USERA > { userType = User.Type.USER_A; }
+	|	< KW_USERB > { userType = User.Type.USER_B; }
+	)
+	{ return new CreateUserCommand(userName, userType); }
+}
+
+//Create Table
 CreateTableCommand createTable():
 {
+	System.out.println("Create Table");
+		  
   	String tableName;
 	List<Attribute> attributes = new ArrayList<Attribute>();
 	List<String> primaryKeys = new ArrayList<String>();
@@ -165,7 +185,8 @@ Attribute parseAttr():
 {
   	String name;
 	Attribute.Type type;
-	int length = -1;}
+	int length = -1;
+	String constraint = "";}
 {
 	( name = getTokenImage() )
 	(			
@@ -180,7 +201,14 @@ Attribute parseAttr():
 			< KW_DECIMAL > { type = Attribute.Type.DECIMAL; }
 		)
 	)
-	{ return new Attribute(type, name, length); }}
+	(
+		// the constraint exp should have an expString generated
+		< KW_CHECK >
+		"(" (
+				constraint = Expression()
+		) ")"
+	)?
+	{ return new Attribute(type, name, length, constraint); }}
 
 ForeignKey parseForeignKey():
 {
@@ -199,9 +227,92 @@ ForeignKey parseForeignKey():
 	")"
 	{ return new ForeignKey(refTableName, localAttrName, refAttrName); }}
 
+// Expression
+String Expression():
+{
+  String exp;}
+{
+  (
+    exp = getSingleExpression()
+	(
+	  (    	< KW_AND >
+    	{    	  exp += " && ";
+    	  exp += getSingleExpression();
+    	}
+   	  )
+   	| (
+   	  	< KW_OR >
+   	  	{
+    	  exp += " || ";
+    	  exp += getSingleExpression();
+    	}
+   	  )  	)*
+  )
+  {    return exp;
+  }}
+
+String getSingleExpression():
+{
+  String exp = "";}
+{
+  (
+    (
+    	"("
+    	{
+      		exp += "(";
+      		exp += getTokenImage();
+    	}
+    	(
+        	< SYM_PLUS > | < SYM_MINUS > | < SYM_STAR > | < SYM_SLASH >
+    	)
+        {
+          	exp += token.image;
+        }
+    	(
+       		< INT_LITERAL > | < DECIMAL_LITERAL > | < STRING_LITERAL >	
+    	)
+    	{
+          		exp += token.image;
+        }
+    	")"
+    	{
+      		exp += ")";
+    	}
+  	)
+  | 	{
+  	  		exp += getTokenImage();
+  		}  )
+  (    
+    < SYM_EQUAL >
+|	< SYM_EXCLEQUAL >
+|	< SYM_LESS >
+|	< SYM_MORE >
+|	< SYM_LESSEQUAL >
+|	< SYM_MOREEQUAL >
+  )
+  {
+	  exp += token.image;
+  }
+  (
+    < INT_LITERAL > | < DECIMAL_LITERAL > | < STRING_LITERAL >
+  )
+  {
+    exp += token.image;
+  }
+  {    return exp;
+  }}
+
+//Utility
 String getTokenImage():
 {}
 {
 	< IDENTIFIER >
 	{ return token.image.toUpperCase(); }
+}
+
+String getTokenWithCase():
+{}
+{
+	< IDENTIFIER >
+	{ return token.image; }
 }

@@ -23,7 +23,6 @@ public class Console {
 				Command c = parser.Command();
 				c.execute();
 				DBManager db = DBManager.getDBManager();
-				System.out.println(db.schemas.size());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

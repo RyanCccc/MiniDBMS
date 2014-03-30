@@ -7,6 +7,8 @@ public class DBManager {
 	private static DBManager me;
 	public List<Table> tables = new ArrayList<Table>();
 	public List<Schema> schemas = new ArrayList<Schema>();
+	public List<User> users = new ArrayList<User>();
+	public User currentUser;
 	public static DBManager getDBManager()
 	{
 		if (me==null) {
