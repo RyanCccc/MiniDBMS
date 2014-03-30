@@ -107,7 +107,9 @@ Command Command():
 		| ret = createUser()	 
 		  
 		)
-		
+	|	ret = DropTable()
+	|	ret = Select()
+	//|	ret = Insert()
 	
 	|	< KW_DELETE >
 		(
@@ -227,6 +229,49 @@ ForeignKey parseForeignKey():
 	")"
 	{ return new ForeignKey(refTableName, localAttrName, refAttrName); }}
 
+//Drop table
+DropTableCommand DropTable():
+{
+  String tableName;}
+{
+  	< KW_DROP > < KW_TABLE > ( tableName = getTokenImage() )
+	{
+	  return new DropTableCommand(tableName);
+	}}
+
+//Select statement
+SelectCommand Select():
+{
+	List<String> attrNames = null;
+	List<String> tables = new ArrayList<String>();
+	String condition = "";
+
+	String name;
+
+	//System.out.println("Select()");
+}
+{
+	< KW_SELECT >
+	(	
+		(
+			(
+				( name = getTokenImage() )
+				{
+					attrNames = new ArrayList<String>();
+					attrNames.add(name);
+				}
+			)
+			( "," ( name = getTokenImage() ) { attrNames.add(name); } )*
+		)
+	|	< SYM_STAR >
+	)
+	< KW_FROM >
+	( ( name = getTokenImage() ) { tables.add(name); } )
+	( "," ( name = getTokenImage() ) { tables.add(name); } )*
+	( < KW_WHERE > ( condition = Expression() ) )?
+	{ return new SelectCommand(attrNames, tables, condition); }
+}
+
 // Expression
 String Expression():
 {
@@ -269,7 +314,7 @@ String getSingleExpression():
           	exp += token.image;
         }
     	(
-       		< INT_LITERAL > | < DECIMAL_LITERAL > | < STRING_LITERAL >	
+       		< INT_LITERAL > | < DECIMAL_LITERAL > | < STRING_LITERAL >	| < IDENTIFIER >
     	)
     	{
           		exp += token.image;
@@ -294,7 +339,7 @@ String getSingleExpression():
 	  exp += token.image;
   }
   (
-    < INT_LITERAL > | < DECIMAL_LITERAL > | < STRING_LITERAL >
+    < INT_LITERAL > | < DECIMAL_LITERAL > | < STRING_LITERAL > | < IDENTIFIER >
   )
   {
     exp += token.image;

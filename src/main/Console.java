@@ -25,7 +25,7 @@ public class Console {
 				DBManager db = DBManager.getDBManager();
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 		}
 	}
