@@ -32,6 +32,9 @@
     case KW_SELECT:
       ret = Select();
       break;
+    case KW_INSERT:
+      ret = Insert();
+      break;
     case KW_DELETE:
       jj_consume_token(KW_DELETE);
                     System.out.println("Delete");
@@ -283,11 +286,71 @@
     throw new Error("Missing return statement in function");
   }
 
+//Insert into table
+  final public InsertCommand Insert() throws ParseException {
+        String tableName;
+        List<Value> values = new ArrayList<Value>();
+
+        Value value;
+    jj_consume_token(KW_INSERT);
+    jj_consume_token(KW_INTO);
+    tableName = getTokenImage();
+    jj_consume_token(KW_VALUES);
+    jj_consume_token(51);
+    value = getValue();
+                                   values.add(value);
+    label_6:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case 52:
+        ;
+        break;
+      default:
+        jj_la1[12] = jj_gen;
+        break label_6;
+      }
+      jj_consume_token(52);
+      value = getValue();
+                                       values.add(value);
+    }
+    jj_consume_token(53);
+          {if (true) return new InsertCommand(tableName, values);}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public Value getValue() throws ParseException {
+  Attribute.Type type;
+  String val;
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case INT_LITERAL:
+      jj_consume_token(INT_LITERAL);
+                type = Attribute.Type.INT;
+                val = token.image;
+      break;
+    case DECIMAL_LITERAL:
+      jj_consume_token(DECIMAL_LITERAL);
+                type = Attribute.Type.DECIMAL;
+                val = token.image;
+      break;
+    case STRING_LITERAL:
+      jj_consume_token(STRING_LITERAL);
+                type = Attribute.Type.CHAR;
+                val = token.image;
+      break;
+    default:
+      jj_la1[13] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+          {if (true) return new Value(type, val);}
+    throw new Error("Missing return statement in function");
+  }
+
 // Expression
   final public String Expression() throws ParseException {
   String exp;
     exp = getSingleExpression();
-    label_6:
+    label_7:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case KW_AND:
@@ -295,8 +358,8 @@
         ;
         break;
       default:
-        jj_la1[12] = jj_gen;
-        break label_6;
+        jj_la1[14] = jj_gen;
+        break label_7;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case KW_AND:
@@ -310,7 +373,7 @@
           exp += getSingleExpression();
         break;
       default:
-        jj_la1[13] = jj_gen;
+        jj_la1[15] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -340,7 +403,7 @@
         jj_consume_token(SYM_SLASH);
         break;
       default:
-        jj_la1[14] = jj_gen;
+        jj_la1[16] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -359,7 +422,7 @@
         jj_consume_token(IDENTIFIER);
         break;
       default:
-        jj_la1[15] = jj_gen;
+        jj_la1[17] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -368,12 +431,13 @@
                 exp += ")";
       break;
     default:
-      jj_la1[16] = jj_gen;
+      jj_la1[18] = jj_gen;
                         exp += getTokenImage();
     }
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case SYM_EQUAL:
       jj_consume_token(SYM_EQUAL);
+          exp += "=";
       break;
     case SYM_EXCLEQUAL:
       jj_consume_token(SYM_EXCLEQUAL);
@@ -391,7 +455,7 @@
       jj_consume_token(SYM_MOREEQUAL);
       break;
     default:
-      jj_la1[17] = jj_gen;
+      jj_la1[19] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -410,7 +474,7 @@
       jj_consume_token(IDENTIFIER);
       break;
     default:
-      jj_la1[18] = jj_gen;
+      jj_la1[20] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -441,7 +505,7 @@
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[19];
+  final private int[] jj_la1 = new int[21];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static {
@@ -449,10 +513,10 @@
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x20008000,0x2414100,0xc0000000,0x0,0x0,0x0,0x0,0x200,0x0,0x0,0x0,0x40000,0xc0,0xc0,0x0,0x0,0x0,0x0,0x0,};
+      jj_la1_0 = new int[] {0x20008000,0x2494100,0xc0000000,0x0,0x0,0x0,0x0,0x200,0x0,0x0,0x0,0x40000,0x0,0x0,0xc0,0xc0,0x0,0x0,0x0,0x0,0x0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x0,0x4000,0x100000,0x100000,0xe,0x0,0x100000,0x4040,0x100000,0x0,0x0,0x0,0xf0,0x3c000,0x80000,0x3f00,0x3c000,};
+      jj_la1_1 = new int[] {0x0,0x0,0x0,0x4000,0x100000,0x100000,0xe,0x0,0x100000,0x4040,0x100000,0x0,0x100000,0x38000,0x0,0x0,0xf0,0x3c000,0x80000,0x3f00,0x3c000,};
    }
 
   /** Constructor with InputStream. */
@@ -466,7 +530,7 @@
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -480,7 +544,7 @@
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -490,7 +554,7 @@
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -500,7 +564,7 @@
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -509,7 +573,7 @@
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -518,7 +582,7 @@
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -574,7 +638,7 @@
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 19; i++) {
+    for (int i = 0; i < 21; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {

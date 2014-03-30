@@ -34,7 +34,7 @@ public class ParserTest {
 //		}
 		ScriptEngineManager mgr = new ScriptEngineManager();
 	    ScriptEngine engine = mgr.getEngineByName("JavaScript");
-	    String foo = "40+2 > 0";
+	    String foo = "'b'=='b'";
 	    try {
 			System.out.println(engine.eval(foo));
 		} catch (ScriptException e) {

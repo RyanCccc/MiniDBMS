@@ -109,7 +109,7 @@ Command Command():
 		)
 	|	ret = DropTable()
 	|	ret = Select()
-	//|	ret = Insert()
+	|	ret = Insert()
 	
 	|	< KW_DELETE >
 		(
@@ -272,6 +272,48 @@ SelectCommand Select():
 	{ return new SelectCommand(attrNames, tables, condition); }
 }
 
+//Insert into table
+InsertCommand Insert():
+{
+	String tableName;
+	List<Value> values = new ArrayList<Value>();
+
+	Value value;
+	
+	//System.out.println("Insert()");
+}
+{
+	< KW_INSERT > < KW_INTO > ( tableName = getTokenImage() )
+	< KW_VALUES > "("
+	( ( value = getValue() ) { values.add(value); } )
+	( "," ( value = getValue() ) { values.add(value); } )*
+	")"
+	{ return new InsertCommand(tableName, values); }
+}
+
+Value getValue():
+{
+  Attribute.Type type;
+  String val;
+}{
+  (    
+  	< INT_LITERAL >
+  	{
+  	  	type = Attribute.Type.INT;
+  	  	val = token.image;  	}
+  | < DECIMAL_LITERAL >
+  	{		type = Attribute.Type.DECIMAL;
+		val = token.image;
+	}
+  | < STRING_LITERAL >
+  	{
+		type = Attribute.Type.CHAR;
+		val = token.image;
+	}
+  )
+	{	  return new Value(type, val);
+	}}
+
 // Expression
 String Expression():
 {
@@ -329,6 +371,9 @@ String getSingleExpression():
   		}  )
   (    
     < SYM_EQUAL >
+  {
+	  exp += "=";
+  }
 |	< SYM_EXCLEQUAL >
 |	< SYM_LESS >
 |	< SYM_MORE >
