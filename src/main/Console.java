@@ -22,7 +22,6 @@ public class Console {
 			try {
 				Command c = parser.Command();
 				c.execute();
-				DBManager db = DBManager.getDBManager();
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				System.out.println(e.getMessage());

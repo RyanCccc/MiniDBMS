@@ -116,6 +116,7 @@ Command Command():
 		  {		    System.out.println("Delete");
 		  }
 		)
+	|	ret = Update()
 	
 	|	< KW_HELP >
 		(
@@ -290,6 +291,31 @@ InsertCommand Insert():
 	")"
 	{ return new InsertCommand(tableName, values); }
 }
+
+//Update values
+UpdateCommand Update():
+{
+	String tableName;
+	List<AttributeAssign> attrAssgs = new ArrayList<AttributeAssign>();
+	String condition = "";
+	AttributeAssign attrAssg;
+}
+{
+	< KW_UPDATE > ( tableName = getTokenImage() )
+	< KW_SET > ( ( attrAssg = AttributeAssg() ) { attrAssgs.add(attrAssg); } )
+	( "," ( attrAssg = AttributeAssg() ) { attrAssgs.add(attrAssg); } )*
+	( < KW_WHERE > ( condition = Expression() ) )?
+	{ return new UpdateCommand(tableName, attrAssgs, condition); }
+}
+
+AttributeAssign AttributeAssg():
+{
+  	String attrName;
+	Value value;}
+{
+  	( attrName = getTokenImage() )
+	< SYM_EQUAL > ( value = getValue() )
+	{ return new AttributeAssign(attrName, value); }}
 
 Value getValue():
 {
