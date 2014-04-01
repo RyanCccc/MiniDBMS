@@ -79,6 +79,28 @@ public class InsertCommand extends Command {
 			}
 		}
 		
+		//Verify foreign key
+		for(ForeignKey foreignKey : schema.foreignKeys)
+		{
+			int indexLocalAttr = schema.getIndexByAttrName(foreignKey.localAttrName);
+			Value value = this.values.get(indexLocalAttr);
+//			System.out.println("local foreign key: " + value);
+			Table refTable = mng.getTable(foreignKey.refTableName);
+			int indexRefAttr = refTable.schema.getIndexByAttrName(foreignKey.refAttrName);
+			boolean found = false;
+			for(Tuple tuple : refTable.tuples)
+			{
+//				System.out.println("ref foreign key: " + tuple.values.get(indexRefAttr));
+				if (tuple.values.get(indexRefAttr).getValue().equals(value.getValue())) {
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				throw new ParseException("Foreign key constraints violated!");
+			}
+		}
+		
 		table.tuples.add(new Tuple(values));
 		System.out.println("Tuple inserted successfully");
 	}

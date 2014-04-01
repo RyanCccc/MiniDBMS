@@ -64,8 +64,14 @@ public class SelectCommand extends Command {
 		}
 
 		List<String> attrNamesInCondition = Eval.getNames(this.condition);
-		for (String attrName : this.attrNames) {
-			System.out.print(attrName + "\t");
+		if (this.attrNames == null) {
+			for (String attrName : allAttrNamesList) {
+				System.out.print(attrName + "\t");
+			}
+		} else {
+			for (String attrName : this.attrNames) {
+				System.out.print(attrName + "\t");
+			}
 		}
 		System.out.println();
 		for (Tuple tuple : tuples) {
@@ -77,7 +83,8 @@ public class SelectCommand extends Command {
 					int index = allAttrNamesList.indexOf(attrNameInCondition
 							.toUpperCase());
 					if (index == -1) {
-						throw new ParseException("No attribute named " + attrNameInCondition);
+						throw new ParseException("No attribute named "
+								+ attrNameInCondition);
 					}
 					Value v = tuple.values.get(index);
 					exp = exp.replace(attrNameInCondition, v.toString());
