@@ -7,6 +7,8 @@ import mysql.Command;
 import mysql.DBManager;
 import mysql.Table;
 import mysql.Tuple;
+import mysql.User;
+import mysql.User.Type;
 import parser.MiniParser;
 import parser.ParseException;
 
@@ -16,6 +18,9 @@ public class Console {
 	public static void main(String[] args){
 		scanner = new Scanner(System.in);
 		boolean quit = false;
+		User user = new User("admin", Type.ADMIN);
+		DBManager.getDBManager().users.add(user);
+		DBManager.getDBManager().currentUser = user;
 		while (!quit){
 			System.out.print("\nSQL> ");
 			String commandString = scanner.nextLine();

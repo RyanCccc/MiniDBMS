@@ -59,6 +59,7 @@ public class CreateTableCommand extends Command {
 		}
 		Schema schema = new Schema(this.tableName, this.attributes, this.primaryKeys, this.foreignKeys);
 		Table table = new Table(this.tableName);
+		table.schema = schema;
 		DBManager.getDBManager().schemas.add(schema);
 		DBManager.getDBManager().tables.add(table);
 		System.out.println("Table created successfully");

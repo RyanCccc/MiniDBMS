@@ -27,6 +27,9 @@ public class HelpDescribeCommand extends Command {
 				ForeignKey foreignKey = schema.getForeignKey(attr.name);
 				line += " -- foreign key references " + foreignKey.refTableName + "(" + foreignKey.refAttrName + ")";
 			}
+			if (!attr.constraint.equals("")) {
+				line += " -- " + attr.constraint;
+			}
 			System.out.println(line);
 		}
 	}

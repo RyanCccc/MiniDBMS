@@ -104,7 +104,7 @@ Command Command():
 		(
 		  ret = createTable()
 		| ret = createUser()
-		| ret = createSubschema() 
+		| ret = createSubschema()
 		  
 		)
 	|	ret = DropTable()

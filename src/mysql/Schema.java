@@ -1,5 +1,6 @@
 package mysql;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import parser.ParseException;
 public class Schema {
 	public String tableName;
 	public List<Attribute> attributes;
+	public List<Attribute> visibleAttributes;
 	public List<String> primaryKeys;
 	public List<ForeignKey> foreignKeys;
 	public Map<String, Integer> attrs;
@@ -16,6 +18,7 @@ public class Schema {
 	public Schema(String tableName, List<Attribute> attributes, List<String> primaryKeys, List<ForeignKey> foreignKeys){
 		this.tableName = tableName;
 		this.attributes = attributes;
+		this.visibleAttributes = new ArrayList<Attribute>();
 		this.primaryKeys = primaryKeys;
 		this.foreignKeys = foreignKeys;
 		this.attrs = new HashMap<>();
@@ -37,6 +40,7 @@ public class Schema {
 	public boolean addVisibleAttrs(List<String> attrNames) throws ParseException
 	{
 		Map<String, Integer> tmpVisibleAttrs = new HashMap<String, Integer>();
+		List<Attribute> tmpVisibleAttributes = new ArrayList<Attribute>();
 		for(String attrName : attrNames)
 		{
 			if (!this.isKeyInAttr(attrName)) {
@@ -44,8 +48,10 @@ public class Schema {
 			}else {
 				int index = getIndexByAttrName(attrName);
 				tmpVisibleAttrs.put(attrName, index);
+				tmpVisibleAttributes.add(this.attributes.get(index));
 			}
 		}
+		this.visibleAttributes = new ArrayList<Attribute>(tmpVisibleAttributes);
 		this.visibleAttrs = new HashMap<String, Integer>(tmpVisibleAttrs);
 		return true;
 	}

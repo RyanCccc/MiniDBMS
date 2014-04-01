@@ -2,6 +2,8 @@ package test;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.*;
@@ -14,6 +16,8 @@ import net.sf.jsqlparser.util.*;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
+
+import util.Eval;
 
 
 public class ParserTest {
@@ -32,14 +36,21 @@ public class ParserTest {
 //			System.out.println(columnDefinition.getColumnSpecStrings());
 //			System.out.println(columnDefinition.getColumnName());
 //		}
-		ScriptEngineManager mgr = new ScriptEngineManager();
-	    ScriptEngine engine = mgr.getEngineByName("JavaScript");
-	    String foo = "'b'=='b'";
-	    try {
-			System.out.println(engine.eval(foo));
-		} catch (ScriptException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		ScriptEngineManager mgr = new ScriptEngineManager();
+//	    ScriptEngine engine = mgr.getEngineByName("JavaScript");
+//	    String foo = "'b'=='b'";
+//	    try {
+//			System.out.println(engine.eval(foo));
+//		} catch (ScriptException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		String a = "student_num=14181 || class_name='CS448' || student_num=1111";
+//		Pattern p = Pattern.compile("[a-zA-Z]([_0-9a-zA-Z])*");
+//		Pattern p2 = Pattern.compile("'.*'");
+//		Matcher m = p2.matcher(a);
+//		while(m.find())
+//			System.out.println(m.group());
+		System.out.println(Eval.getNames("snum=student_num && fid=faculty_id && cname=class_name"));
 	}
 }

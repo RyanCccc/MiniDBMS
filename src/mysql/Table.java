@@ -6,6 +6,7 @@ import java.util.List;
 public class Table {
 	public String tableName;
 	public List<Tuple> tuples;
+	public Schema schema;
 	public Table(String tableName)
 	{
 		this.tableName = tableName;
