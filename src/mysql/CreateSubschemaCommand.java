@@ -2,6 +2,8 @@ package mysql;
 
 import java.util.List;
 
+import parser.ParseException;
+
 public class CreateSubschemaCommand extends Command {
 	String tableName;
 	List<String> attrNames;
@@ -13,8 +15,14 @@ public class CreateSubschemaCommand extends Command {
 	}
 	
 	@Override
-	public void execute()
+	public void execute() throws ParseException
 	{
-		System.out.println(this.attrNames);
+		DBManager mng = DBManager.getDBManager();
+		Schema schema = mng.getSchema(this.tableName);
+		if (schema == null) {
+			throw new ParseException("No table named "+this.tableName);
+		}
+		schema.addVisibleAttrs(this.attrNames);
+		System.out.println("Subschema created successfully");
 	}
 }

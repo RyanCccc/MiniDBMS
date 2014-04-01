@@ -15,5 +15,21 @@ public class Attribute {
 		this.length = length;
 		this.constraint = constraint;
 	}
+	@Override
+	public String toString()
+	{
+		String str = this.name + " -- ";
+		switch (this.type) {
+		case INT:
+			str += "int";
+			break;
+		case CHAR:
+			str += "char(" + this.length + ")";
+			break;
+		case DECIMAL:
+			str += "decimal";
+		}
+		return str;
+	}
 
 }

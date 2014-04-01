@@ -39,4 +39,13 @@ public class DBManager {
 		return null;
 	}
 	
+	public User getUser(String username)
+	{
+		for(User user : this.users){
+			if (user.userName.equals(username)) {
+				return user;
+			}
+		}
+		return null;
+	}
 }

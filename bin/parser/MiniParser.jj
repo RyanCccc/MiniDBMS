@@ -97,7 +97,6 @@ Command Command():
 {
 	Command ret;
 	ret = new Command();
-	//System.out.println("Command()");
 }
 {
 	(
@@ -122,9 +121,9 @@ Command Command():
 	
 	|	< KW_HELP >
 		(
-		  {
-		    System.out.println("Help");
-		  }
+		  	ret = helpTable()
+		 |  ret = helpDescribe()
+		 |  ret = helpCmd()
 		)
 	) ";" < EOF >
 	{ return ret; }
@@ -147,8 +146,6 @@ CreateSubschemaCommand createSubschema():
 //Create User
 CreateUserCommand createUser():
 {
-  	System.out.println("Create User");
-
 	String userName;
 	User.Type userType;
 }
@@ -164,8 +161,6 @@ CreateUserCommand createUser():
 //Create Table
 CreateTableCommand createTable():
 {
-	System.out.println("Create Table");
-		  
   	String tableName;
 	List<Attribute> attributes = new ArrayList<Attribute>();
 	List<String> primaryKeys = new ArrayList<String>();
@@ -279,6 +274,59 @@ DeleteSubschemaCommand deleteSubschema():
 	{ return new DeleteSubschemaCommand(tableName); }
 }
 
+//Help Table
+HelpTableCommand helpTable():
+{
+}
+{
+	< KW_TABLES >
+	{ return new HelpTableCommand(); }
+}
+
+//Help Describe
+HelpDescribeCommand helpDescribe():
+{
+	String tableName;
+}
+{
+	< KW_DESCRIBE > ( tableName = getTokenImage() )
+	{ return new HelpDescribeCommand(tableName); }
+}
+
+HelpCmdCommand helpCmd():
+{
+	HelpCmdCommand.Type type;
+}
+{
+	(
+		(
+			< KW_CREATE > < KW_TABLE >
+			{ type = HelpCmdCommand.Type.CREATE_TABLE; }
+		)
+	|	(
+			< KW_DROP > < KW_TABLE >
+			{ type = HelpCmdCommand.Type.DROP_TABLE; }
+		)
+	|	(
+			< KW_SELECT >
+			{ type = HelpCmdCommand.Type.SELECT; }
+		)
+	|	(
+			< KW_INSERT >
+			{ type = HelpCmdCommand.Type.INSERT; }
+		)
+	|	(
+			< KW_DELETE >
+			{ type = HelpCmdCommand.Type.DELETE; }
+		)
+	|	(
+			< KW_UPDATE >
+			{ type = HelpCmdCommand.Type.UPDATE; }
+		)
+	)
+	{ return new HelpCmdCommand(type); }
+}
+
 //Drop table
 DropTableCommand DropTable():
 {
@@ -297,8 +345,6 @@ SelectCommand Select():
 	String condition = "";
 
 	String name;
-
-	//System.out.println("Select()");
 }
 {
 	< KW_SELECT >
@@ -329,8 +375,6 @@ InsertCommand Insert():
 	List<Value> values = new ArrayList<Value>();
 
 	Value value;
-	
-	//System.out.println("Insert()");
 }
 {
 	< KW_INSERT > < KW_INTO > ( tableName = getTokenImage() )

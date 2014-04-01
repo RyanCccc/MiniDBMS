@@ -1,5 +1,7 @@
 package mysql;
 
+import parser.ParseException;
+
 public class DeleteUserCommand extends Command {
 	public String userName;
 	public DeleteUserCommand(String userName)
@@ -8,8 +10,14 @@ public class DeleteUserCommand extends Command {
 	}
 	
 	@Override
-	public void execute()
+	public void execute() throws ParseException
 	{
-		
+		DBManager mng = DBManager.getDBManager();
+		User user = mng.getUser(this.userName);
+		if (user==null) {
+			throw new ParseException("Username " + this.userName + " does not exist");
+		}
+		mng.users.remove(user);
+		System.out.println("User deleted successfully");
 	}
 }

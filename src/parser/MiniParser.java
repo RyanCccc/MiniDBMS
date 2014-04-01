@@ -61,10 +61,29 @@
       break;
     case KW_HELP:
       jj_consume_token(KW_HELP);
-                    System.out.println("Help");
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case KW_TABLES:
+        ret = helpTable();
+        break;
+      case KW_DESCRIBE:
+        ret = helpDescribe();
+        break;
+      case KW_CREATE:
+      case KW_DROP:
+      case KW_SELECT:
+      case KW_INSERT:
+      case KW_DELETE:
+      case KW_UPDATE:
+        ret = helpCmd();
+        break;
+      default:
+        jj_la1[2] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
       break;
     default:
-      jj_la1[2] = jj_gen;
+      jj_la1[3] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -90,7 +109,7 @@
         ;
         break;
       default:
-        jj_la1[3] = jj_gen;
+        jj_la1[4] = jj_gen;
         break label_1;
       }
       jj_consume_token(51);
@@ -103,8 +122,6 @@
 
 //Create User
   final public CreateUserCommand createUser() throws ParseException {
-        System.out.println("Create User");
-
         String userName;
         User.Type userType;
     jj_consume_token(KW_USER);
@@ -119,7 +136,7 @@
                                userType = User.Type.USER_B;
       break;
     default:
-      jj_la1[4] = jj_gen;
+      jj_la1[5] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -129,8 +146,6 @@
 
 //Create Table
   final public CreateTableCommand createTable() throws ParseException {
-        System.out.println("Create Table");
-
         String tableName;
         List<Attribute> attributes = new ArrayList<Attribute>();
         List<String> primaryKeys = new ArrayList<String>();
@@ -153,7 +168,7 @@
         ;
         break;
       default:
-        jj_la1[5] = jj_gen;
+        jj_la1[6] = jj_gen;
         break label_2;
       }
     }
@@ -169,7 +184,7 @@
         ;
         break;
       default:
-        jj_la1[6] = jj_gen;
+        jj_la1[7] = jj_gen;
         break label_3;
       }
       jj_consume_token(51);
@@ -184,7 +199,7 @@
         ;
         break;
       default:
-        jj_la1[7] = jj_gen;
+        jj_la1[8] = jj_gen;
         break label_4;
       }
       jj_consume_token(51);
@@ -220,7 +235,7 @@
                                          type = Attribute.Type.DECIMAL;
       break;
     default:
-      jj_la1[8] = jj_gen;
+      jj_la1[9] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -232,7 +247,7 @@
       jj_consume_token(53);
       break;
     default:
-      jj_la1[9] = jj_gen;
+      jj_la1[10] = jj_gen;
       ;
     }
           {if (true) return new Attribute(type, name, length, constraint);}
@@ -269,7 +284,7 @@
       condition = Expression();
       break;
     default:
-      jj_la1[10] = jj_gen;
+      jj_la1[11] = jj_gen;
       ;
     }
           {if (true) return new DeleteCommand(tableName, condition);}
@@ -291,6 +306,60 @@
     jj_consume_token(KW_SUBSCHEMA);
     tableName = getTokenImage();
           {if (true) return new DeleteSubschemaCommand(tableName);}
+    throw new Error("Missing return statement in function");
+  }
+
+//Help Table
+  final public HelpTableCommand helpTable() throws ParseException {
+    jj_consume_token(KW_TABLES);
+          {if (true) return new HelpTableCommand();}
+    throw new Error("Missing return statement in function");
+  }
+
+//Help Describe
+  final public HelpDescribeCommand helpDescribe() throws ParseException {
+        String tableName;
+    jj_consume_token(KW_DESCRIBE);
+    tableName = getTokenImage();
+          {if (true) return new HelpDescribeCommand(tableName);}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public HelpCmdCommand helpCmd() throws ParseException {
+        HelpCmdCommand.Type type;
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case KW_CREATE:
+      jj_consume_token(KW_CREATE);
+      jj_consume_token(KW_TABLE);
+                          type = HelpCmdCommand.Type.CREATE_TABLE;
+      break;
+    case KW_DROP:
+      jj_consume_token(KW_DROP);
+      jj_consume_token(KW_TABLE);
+                          type = HelpCmdCommand.Type.DROP_TABLE;
+      break;
+    case KW_SELECT:
+      jj_consume_token(KW_SELECT);
+                          type = HelpCmdCommand.Type.SELECT;
+      break;
+    case KW_INSERT:
+      jj_consume_token(KW_INSERT);
+                          type = HelpCmdCommand.Type.INSERT;
+      break;
+    case KW_DELETE:
+      jj_consume_token(KW_DELETE);
+                          type = HelpCmdCommand.Type.DELETE;
+      break;
+    case KW_UPDATE:
+      jj_consume_token(KW_UPDATE);
+                          type = HelpCmdCommand.Type.UPDATE;
+      break;
+    default:
+      jj_la1[12] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+          {if (true) return new HelpCmdCommand(type);}
     throw new Error("Missing return statement in function");
   }
 
@@ -324,7 +393,7 @@
           ;
           break;
         default:
-          jj_la1[11] = jj_gen;
+          jj_la1[13] = jj_gen;
           break label_5;
         }
         jj_consume_token(51);
@@ -336,7 +405,7 @@
       jj_consume_token(SYM_STAR);
       break;
     default:
-      jj_la1[12] = jj_gen;
+      jj_la1[14] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -350,7 +419,7 @@
         ;
         break;
       default:
-        jj_la1[13] = jj_gen;
+        jj_la1[15] = jj_gen;
         break label_6;
       }
       jj_consume_token(51);
@@ -363,7 +432,7 @@
       condition = Expression();
       break;
     default:
-      jj_la1[14] = jj_gen;
+      jj_la1[16] = jj_gen;
       ;
     }
           {if (true) return new SelectCommand(attrNames, tables, condition);}
@@ -390,7 +459,7 @@
         ;
         break;
       default:
-        jj_la1[15] = jj_gen;
+        jj_la1[17] = jj_gen;
         break label_7;
       }
       jj_consume_token(51);
@@ -420,7 +489,7 @@
         ;
         break;
       default:
-        jj_la1[16] = jj_gen;
+        jj_la1[18] = jj_gen;
         break label_8;
       }
       jj_consume_token(51);
@@ -433,7 +502,7 @@
       condition = Expression();
       break;
     default:
-      jj_la1[17] = jj_gen;
+      jj_la1[19] = jj_gen;
       ;
     }
           {if (true) return new UpdateCommand(tableName, attrAssgs, condition);}
@@ -470,7 +539,7 @@
                 val = token.image;
       break;
     default:
-      jj_la1[18] = jj_gen;
+      jj_la1[20] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -490,7 +559,7 @@
         ;
         break;
       default:
-        jj_la1[19] = jj_gen;
+        jj_la1[21] = jj_gen;
         break label_9;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -505,7 +574,7 @@
           exp += getSingleExpression();
         break;
       default:
-        jj_la1[20] = jj_gen;
+        jj_la1[22] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -535,7 +604,7 @@
         jj_consume_token(SYM_SLASH);
         break;
       default:
-        jj_la1[21] = jj_gen;
+        jj_la1[23] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -554,7 +623,7 @@
         jj_consume_token(IDENTIFIER);
         break;
       default:
-        jj_la1[22] = jj_gen;
+        jj_la1[24] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -563,7 +632,7 @@
                 exp += ")";
       break;
     default:
-      jj_la1[23] = jj_gen;
+      jj_la1[25] = jj_gen;
                         exp += getTokenImage();
     }
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -587,7 +656,7 @@
       jj_consume_token(SYM_MOREEQUAL);
       break;
     default:
-      jj_la1[24] = jj_gen;
+      jj_la1[26] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -606,7 +675,7 @@
       jj_consume_token(IDENTIFIER);
       break;
     default:
-      jj_la1[25] = jj_gen;
+      jj_la1[27] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -637,7 +706,7 @@
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[26];
+  final private int[] jj_la1 = new int[28];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static {
@@ -645,10 +714,10 @@
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x20008000,0x20020000,0x2c94100,0x0,0xc0000000,0x0,0x0,0x0,0x0,0x200,0x40000,0x0,0x0,0x0,0x40000,0x0,0x0,0x40000,0x0,0xc0,0xc0,0x0,0x0,0x0,0x0,0x0,};
+      jj_la1_0 = new int[] {0x20008000,0x20020000,0xcc94100,0x2c94100,0x0,0xc0000000,0x0,0x0,0x0,0x0,0x200,0x40000,0xc94100,0x0,0x0,0x0,0x40000,0x0,0x0,0x40000,0x0,0xc0,0xc0,0x0,0x0,0x0,0x0,0x0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x1,0x1,0x0,0x80000,0x0,0x4000,0x80000,0x80000,0xe,0x0,0x0,0x80000,0x4040,0x80000,0x0,0x80000,0x80000,0x0,0x38000,0x0,0x0,0xf0,0x3c000,0x100000,0x3f00,0x3c000,};
+      jj_la1_1 = new int[] {0x1,0x1,0x0,0x0,0x80000,0x0,0x4000,0x80000,0x80000,0xe,0x0,0x0,0x0,0x80000,0x4040,0x80000,0x0,0x80000,0x80000,0x0,0x38000,0x0,0x0,0xf0,0x3c000,0x100000,0x3f00,0x3c000,};
    }
 
   /** Constructor with InputStream. */
@@ -662,7 +731,7 @@
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 28; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -676,7 +745,7 @@
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 28; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -686,7 +755,7 @@
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 28; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -696,7 +765,7 @@
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 28; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -705,7 +774,7 @@
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 28; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -714,7 +783,7 @@
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 28; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -770,7 +839,7 @@
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 26; i++) {
+    for (int i = 0; i < 28; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {

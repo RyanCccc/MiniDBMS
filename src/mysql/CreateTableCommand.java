@@ -36,19 +36,19 @@ public class CreateTableCommand extends Command {
 		for(String keyName : primaryKeys)
 		{
 			if (!isKeyInAttr(keyName)) {
-				throw new ParseException("No key for primary key"+keyName);
+				throw new ParseException("No key for primary key "+keyName);
 			}
 		}
 		for (ForeignKey foreignKey : this.foreignKeys) {
 			if (!isKeyInAttr(foreignKey.localAttrName)) {
-				throw new ParseException("No key for foreign key"+foreignKey.localAttrName);
+				throw new ParseException("No key for foreign key "+foreignKey.localAttrName);
 			}
 			Schema schema = DBManager.getDBManager().getSchema(foreignKey.refTableName);
 			if (schema==null) {
 				throw new ParseException("No Table " + foreignKey.refTableName + " for foreign key"+foreignKey.localAttrName);
 			}
 			if (!schema.isKeyInAttr(foreignKey.refAttrName)) {
-				throw new ParseException("No Referred attributes " + foreignKey.refAttrName + " for foreign key"+foreignKey.localAttrName);
+				throw new ParseException("No Referred attributes " + foreignKey.refAttrName + " for foreign key "+foreignKey.localAttrName);
 			}
 		}
 		for(Schema schema : DBManager.getDBManager().schemas)
@@ -61,5 +61,6 @@ public class CreateTableCommand extends Command {
 		Table table = new Table(this.tableName);
 		DBManager.getDBManager().schemas.add(schema);
 		DBManager.getDBManager().tables.add(table);
+		System.out.println("Table created successfully");
 	}
 }
