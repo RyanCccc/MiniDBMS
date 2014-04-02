@@ -3,12 +3,10 @@ MiniDBMS
 
 Mini Database Management System
 
-CS448 project.
-
-CS448 - Project 2 
-Author: Rendong Chen
-Login: chen769
-Email: chen769@purdue.edu
+- CS448 - Project 2
+- Author: Rendong Chen
+- Login: chen769
+- Email: chen769@purdue.edu
 
 
 Project Detail:
