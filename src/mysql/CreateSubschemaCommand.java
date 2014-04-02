@@ -19,10 +19,12 @@ public class CreateSubschemaCommand extends Command {
 	{
 		DBManager mng = DBManager.getDBManager();
 		Schema schema = mng.getSchema(this.tableName);
-		if (schema == null) {
+		Table table = mng.getTable(this.tableName);
+		if (schema == null || table == null) {
 			throw new ParseException("No table named "+this.tableName);
 		}
 		schema.addVisibleAttrs(this.attrNames);
+		table.schema.addVisibleAttrs(this.attrNames);
 		System.out.println("Subschema created successfully");
 	}
 }

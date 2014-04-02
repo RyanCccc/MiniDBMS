@@ -17,6 +17,10 @@ public class DeleteUserCommand extends Command {
 		if (user==null) {
 			throw new ParseException("Username " + this.userName + " does not exist");
 		}
+		if (user.equals(mng.currentUser))
+		{
+			throw new ParseException("You cannot delete yourself");
+		}
 		mng.users.remove(user);
 		System.out.println("User deleted successfully");
 	}

@@ -26,7 +26,11 @@ public class SelectCommand extends Command {
 		List<String> allAttrNamesList = new ArrayList<String>();
 		List<Table> tables = new ArrayList<Table>();
 		for (String tableName : this.tableNames) {
-			tables.add(mng.getTable(tableName));
+			Table table = mng.getTable(tableName);
+			if (table==null) {
+				throw new ParseException("No table named " + tableName);
+			}
+			tables.add(table);
 		}
 		List<Tuple> tuples = new ArrayList<Tuple>();
 		tuples.add(new Tuple(new ArrayList<Value>()));
@@ -37,7 +41,7 @@ public class SelectCommand extends Command {
 			List<Tuple> tmpTuples = new ArrayList<Tuple>();
 			for (Tuple targetTuple : tuples) {
 				for (Tuple tuple : table.tuples) {
-					Tuple mergedTuple = targetTuple.mergeTuple(tuple);
+					Tuple mergedTuple = targetTuple.mergeTuple(tuple, table.schema);
 					tmpTuples.add(mergedTuple);
 				}
 			}
@@ -62,8 +66,6 @@ public class SelectCommand extends Command {
 				attrPos.add(index);
 			}
 		}
-
-		List<String> attrNamesInCondition = Eval.getNames(this.condition);
 		if (this.attrNames == null) {
 			for (String attrName : allAttrNamesList) {
 				System.out.print(attrName + "\t");
@@ -74,6 +76,7 @@ public class SelectCommand extends Command {
 			}
 		}
 		System.out.println();
+		List<String> attrNamesInCondition = Eval.getNames(this.condition);
 		for (Tuple tuple : tuples) {
 			String exp = this.condition;
 			if (exp.equals("")) {

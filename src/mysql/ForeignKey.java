@@ -1,8 +1,8 @@
 package mysql;
 
-import java.util.List;
+import java.io.Serializable;
 
-public class ForeignKey {
+public class ForeignKey implements Serializable{
 	public String refTableName;
 	public String localAttrName;
 	public String refAttrName;

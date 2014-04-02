@@ -125,8 +125,18 @@ Command Command():
 		 |  ret = helpDescribe()
 		 |  ret = helpCmd()
 		)
+	|	ret = Quit()
 	) ";" < EOF >
 	{ return ret; }
+}
+
+// QUIT -----------------------------------------------------------------------
+QuitCommand Quit():
+{
+}
+{
+	< KW_QUIT >
+	{ return new QuitCommand(); }
 }
 
 //Create Subschema

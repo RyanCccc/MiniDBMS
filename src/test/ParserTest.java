@@ -1,5 +1,6 @@
 package test;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -51,6 +52,10 @@ public class ParserTest {
 //		Matcher m = p2.matcher(a);
 //		while(m.find())
 //			System.out.println(m.group());
-		System.out.println(Eval.getNames("snum=student_num && fid=faculty_id && cname=class_name"));
+//		System.out.println(Eval.getNames("snum=student_num && fid=faculty_id && cname=class_name"));
+//		List<Integer> list = new ArrayList<Integer>();
+//		for (int i = 0; i < 10; i++) {
+//			list.add(i);
+//		}
 	}
 }

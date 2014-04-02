@@ -1,6 +1,8 @@
 package mysql;
 
-public class Attribute {
+import java.io.Serializable;
+
+public class Attribute implements Serializable{
 	public enum Type{
 		INT, CHAR, DECIMAL;
 	}
@@ -12,7 +14,7 @@ public class Attribute {
 		// TODO Auto-generated constructor stub
 		this.type = type;
 		this.name = name;
-		this.length = length;
+		this.length = length+2;
 		this.constraint = constraint;
 	}
 	@Override

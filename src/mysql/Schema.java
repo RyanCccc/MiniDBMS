@@ -1,5 +1,6 @@
 package mysql;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Map;
 
 import parser.ParseException;
 
-public class Schema {
+public class Schema implements Serializable {
 	public String tableName;
 	public List<Attribute> attributes;
 	public List<Attribute> visibleAttributes;
@@ -22,6 +23,7 @@ public class Schema {
 		this.primaryKeys = primaryKeys;
 		this.foreignKeys = foreignKeys;
 		this.attrs = new HashMap<>();
+		this.visibleAttrs = new HashMap<>();
 		for(int i=0; i<attributes.size(); i++)
 		{
 			this.attrs.put(attributes.get(i).name, Integer.valueOf(i));

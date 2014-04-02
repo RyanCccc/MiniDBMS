@@ -1,6 +1,8 @@
 package mysql;
 
-public class Value {
+import java.io.Serializable;
+
+public class Value implements Serializable{
 	public Attribute.Type type;
 	public String val;
 	public Value(Attribute.Type type, String val){

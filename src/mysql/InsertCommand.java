@@ -41,7 +41,7 @@ public class InsertCommand extends Command {
 				String val = (String) value.getValue();
 				if (val.length() > attribute.length) {
 					throw new ParseException("Attribute value " + val
-							+ " exceed max length " + attribute.length);
+							+ " exceed max length " + (attribute.length-2));
 				}
 			}
 

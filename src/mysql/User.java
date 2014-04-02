@@ -1,6 +1,8 @@
 package mysql;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
 	public enum Type {
 		ADMIN(2), USER_A(1), USER_B(0);
 		private int rank;
@@ -15,5 +17,4 @@ public class User {
 		this.userName = userName;
 		this.userType = userType;
 	}
-	
 }
