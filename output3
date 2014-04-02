@@ -1,0 +1,43 @@
+
+SQL> DEPARTMENT
+FACULTY
+STUDENT
+CLASS
+ENROLLED
+GRADE
+
+SQL> SNAME -- char(32)
+SLEVEL -- char(12) -- SLEVEL=='JR' || SLEVEL=='SR' || SLEVEL=='SO' || SLEVEL=='FR'
+
+SQL> DNAME -- char(32)
+LOCATION -- char(32)
+
+SQL> FID -- int -- primary key -- FID!=0
+FNAME -- char(32)
+DEPT -- int -- foreign key references DEPARTMENT(DEPTID)
+
+SQL> Error: Authorization failure
+
+SQL> Error: Authorization failure
+
+SQL> STU_NUM	CLASSNAME	GRADE	
+14181	'ENG400'	'A'	
+80161	'ENG400'	'B'	
+
+SQL> SNAME	SLEVEL	
+'Jack'	'SO'	
+'Smith'	'FR'	
+'Banks'	'SR'	
+'M.Lee'	'SO'	
+'Bale'	'JR'	
+'Lim'	'SR'	
+'Sharon'	'FR'	
+'Johnson'	'JR'	
+'E.Cho'	'JR'	
+'Angin'	'SR'	
+
+SQL> Error: No attribute named SNUM
+
+SQL> Error: No attribute named DEPTID
+
+SQL> 

@@ -1,0 +1,63 @@
+
+SQL> SNAME -- char(32)
+SLEVEL -- char(12) -- SLEVEL=='JR' || SLEVEL=='SR' || SLEVEL=='SO' || SLEVEL=='FR'
+AGE -- int -- AGE>16
+
+SQL> Error: No table named GRADE
+
+SQL> SNAME	SLEVEL	AGE	
+'Jack'	'SO'	17	
+'Smith'	'FR'	21	
+'Banks'	'SR'	18	
+'M.Lee'	'SO'	22	
+'Bale'	'JR'	22	
+'Lim'	'SR'	19	
+'Sharon'	'FR'	22	
+'Johnson'	'JR'	27	
+'E.Cho'	'JR'	27	
+'Angin'	'SR'	25	
+
+SQL> FID	FNAME	DEPT	
+1030	'Guzaldo'	1	
+1040	'Boling'	44	
+1050	'Mason'	11	
+1060	'Zwink'	22	
+1070	'Walton'	1	
+1080	'Teach'	1	
+1090	'Jason'	1	
+
+SQL> FID	FNAME	DEPT	
+1010	'Layton'	11	
+1050	'Mason'	11	
+1060	'Zwink'	22	
+1070	'Walton'	1	
+1080	'Teach'	1	
+1090	'Jason'	1	
+
+SQL> FID	FNAME	DEPT	
+1010	'Layton'	11	
+1020	'Jungles'	22	
+1030	'Guzaldo'	1	
+1060	'Zwink'	22	
+1070	'Walton'	1	
+1080	'Teach'	1	
+1090	'Jason'	1	
+
+SQL> STUDENT_NUM	CLASS_NAME	
+14181	'CS448'	
+14181	'MATH27500'	
+12341	'ENG400'	
+12341	'MATH27500'	
+80161	'ENG400'	
+80161	'ENG320'	
+80161	'HIS21000'	
+80161	'STAT11000'	
+14181	'STAT11000'	
+12341	'COM10000'	
+12341	'HIS21000'	
+57651	'PHYS10000'	
+57651	'ENG320'	
+57651	'COM10000'	
+14181	'ENG400'	
+
+SQL> 

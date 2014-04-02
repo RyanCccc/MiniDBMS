@@ -1,0 +1,554 @@
+No data for users
+No data for schemas
+No data for tables
+
+SQL> Table created successfully
+
+SQL> Table created successfully
+
+SQL> Table created successfully
+
+SQL> Table created successfully
+
+SQL> Table created successfully
+
+SQL> Error: Table already exists
+
+SQL> Error: No Referred attributes NUM for foreign key STUDENT_NUM
+
+SQL> Error: Value 101 doesn't satisfy constraint DEPTID>0 && DEPTID<100
+
+SQL> Error: Value 0 doesn't satisfy constraint FID!=0
+
+SQL> Error: Value 'A' doesn't satisfy constraint SLEVEL=='JR' || SLEVEL=='SR' || SLEVEL=='SO' || SLEVEL=='FR'
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> User created successfully
+
+SQL> User created successfully
+
+SQL> Error: Username user3 does not exist
+
+SQL> User created successfully
+
+SQL> User deleted successfully
+
+SQL> Subschema created successfully
+
+SQL> Subschema created successfully
+
+SQL> Error: No table named GRADE
+
+SQL> Error: No matching attribute name FFFID
+
+SQL> DEPARTMENT
+FACULTY
+STUDENT
+CLASS
+ENROLLED
+
+SQL> CNAME -- char(32) -- primary key
+MEETS_AT -- char(32)
+ROOM -- char(12)
+FACULTY_ID -- int -- foreign key references FACULTY(FID)
+
+SQL> 
+SQL> DEPARTMENT
+FACULTY
+STUDENT
+CLASS
+ENROLLED
+
+SQL> SNUM -- int -- primary key
+SNAME -- char(32)
+DEP -- int -- foreign key references DEPARTMENT(DEPTID)
+SLEVEL -- char(12) -- SLEVEL=='JR' || SLEVEL=='SR' || SLEVEL=='SO' || SLEVEL=='FR'
+AGE -- int -- AGE>16
+
+SQL> This command has the form: 
+CREATE TABLE table_name ( attribute_1 attribute1_type CHECK (constraint1),
+attribute_2 attribute2_type, ... , PRIMARY KEY ( attribute_1, attribute_2 ), FOREIGN 
+KEY ( attribute_y ) REFERENCES table_x ( attribute_t ), FOREIGN KEY 
+( attribute_w ) REFERENCES table_y ( attribute_z )... );
+
+SQL> This command has the form: 
+DROP TABLE table_name;
+The "DROP TABLE" token is followed by a table name
+
+SQL> This command has the form: 
+ DELETE FROM table_name WHERE condition_list; 
+ The "DELETE FROM" token is followed by a table name, followed by the optional 
+"WHERE" keyword and a condition list. The condition list has the following format: 
+ attribute1 operator value1 
+ OR 
+ attribute1 operator value1 AND/OR attribute2 operator value2 AND/OR attribute3 
+operator value3...
+
+SQL> This command has the form: 
+INSERT INTO table_name VALUES ( val1, val2, ... );
+
+SQL> This command has the form: 
+ 
+DELETE FROM table_name WHERE condition_list; 
+ 
+The "DELETE FROM" token is followed by a table name, followed by the optional 
+"WHERE" keyword and a condition list. The condition list has the following format: 
+ 
+attribute1 operator value1 
+ 
+OR 
+ 
+attribute1 operator value1 AND/OR attribute2 operator value2 AND/OR attribute3 
+operator value3...
+
+SQL> This command has the form: 
+ 
+UPDATE table_name SET attr1 = val1, attr2 = val2... WHERE condition_list;
+
+SQL> STUDENT_NUM	CLASS_NAME	
+14181	'CS448'	
+14181	'MATH27500'	
+12341	'ENG400'	
+12341	'MATH27500'	
+80161	'ENG400'	
+80161	'ENG320'	
+80161	'HIS21000'	
+80161	'STAT11000'	
+14181	'STAT11000'	
+12341	'COM10000'	
+16711	'ENG400'	
+16711	'STAT11000'	
+12341	'HIS21000'	
+57651	'PHYS10000'	
+57651	'ENG320'	
+57651	'COM10000'	
+
+SQL> Error: No table called MANAGER
+
+SQL> Error: Foreign key constraints violated
+
+SQL> SNUM	SNAME	
+14181	'Jack'	
+16711	'A.Smith'	
+12341	'Banks'	
+37261	'M.Lee'	
+48291	'Bale'	
+57651	'Lim'	
+10191	'Sharon'	
+73571	'Johnson'	
+80161	'E.Cho'	
+80162	'Angin'	
+
+SQL> STUDENT_NUM	CLASS_NAME	
+14181	'CS448'	
+14181	'MATH27500'	
+14181	'STAT11000'	
+
+SQL> SNAME	CNAME	FNAME	
+'Jack'	'CS448'	'Layton'	
+'Jack'	'MATH27500'	'Mason'	
+'Jack'	'STAT11000'	'Mason'	
+'A.Smith'	'ENG400'	'Boling'	
+'A.Smith'	'STAT11000'	'Mason'	
+'Banks'	'ENG400'	'Boling'	
+'Banks'	'COM10000'	'Boling'	
+'Banks'	'HIS21000'	'Boling'	
+'Banks'	'MATH27500'	'Mason'	
+'Lim'	'ENG320'	'Boling'	
+'Lim'	'COM10000'	'Boling'	
+'Lim'	'PHYS10000'	'Layton'	
+'E.Cho'	'ENG400'	'Boling'	
+'E.Cho'	'ENG320'	'Boling'	
+'E.Cho'	'HIS21000'	'Boling'	
+'E.Cho'	'STAT11000'	'Mason'	
+
+SQL> SNAME	CNAME	
+'Jack'	'ENG400'	
+'Jack'	'ENG320'	
+'Jack'	'COM10000'	
+'Jack'	'ME30800'	
+'Jack'	'CS448'	
+'Jack'	'HIS21000'	
+'Jack'	'MATH27500'	
+'Jack'	'STAT11000'	
+'Jack'	'PHYS10000'	
+'A.Smith'	'ENG400'	
+'A.Smith'	'ENG320'	
+'A.Smith'	'COM10000'	
+'A.Smith'	'ME30800'	
+'A.Smith'	'CS448'	
+'A.Smith'	'HIS21000'	
+'A.Smith'	'MATH27500'	
+'A.Smith'	'STAT11000'	
+'A.Smith'	'PHYS10000'	
+'Banks'	'ENG400'	
+'Banks'	'ENG320'	
+'Banks'	'COM10000'	
+'Banks'	'ME30800'	
+'Banks'	'CS448'	
+'Banks'	'HIS21000'	
+'Banks'	'MATH27500'	
+'Banks'	'STAT11000'	
+'Banks'	'PHYS10000'	
+'M.Lee'	'ENG400'	
+'M.Lee'	'ENG320'	
+'M.Lee'	'COM10000'	
+'M.Lee'	'ME30800'	
+'M.Lee'	'CS448'	
+'M.Lee'	'HIS21000'	
+'M.Lee'	'MATH27500'	
+'M.Lee'	'STAT11000'	
+'M.Lee'	'PHYS10000'	
+'Bale'	'ENG400'	
+'Bale'	'ENG320'	
+'Bale'	'COM10000'	
+'Bale'	'ME30800'	
+'Bale'	'CS448'	
+'Bale'	'HIS21000'	
+'Bale'	'MATH27500'	
+'Bale'	'STAT11000'	
+'Bale'	'PHYS10000'	
+'Lim'	'ENG400'	
+'Lim'	'ENG320'	
+'Lim'	'COM10000'	
+'Lim'	'ME30800'	
+'Lim'	'CS448'	
+'Lim'	'HIS21000'	
+'Lim'	'MATH27500'	
+'Lim'	'STAT11000'	
+'Lim'	'PHYS10000'	
+'Sharon'	'ENG400'	
+'Sharon'	'ENG320'	
+'Sharon'	'COM10000'	
+'Sharon'	'ME30800'	
+'Sharon'	'CS448'	
+'Sharon'	'HIS21000'	
+'Sharon'	'MATH27500'	
+'Sharon'	'STAT11000'	
+'Sharon'	'PHYS10000'	
+'Johnson'	'ENG400'	
+'Johnson'	'ENG320'	
+'Johnson'	'COM10000'	
+'Johnson'	'ME30800'	
+'Johnson'	'CS448'	
+'Johnson'	'HIS21000'	
+'Johnson'	'MATH27500'	
+'Johnson'	'STAT11000'	
+'Johnson'	'PHYS10000'	
+'E.Cho'	'ENG400'	
+'E.Cho'	'ENG320'	
+'E.Cho'	'COM10000'	
+'E.Cho'	'ME30800'	
+'E.Cho'	'CS448'	
+'E.Cho'	'HIS21000'	
+'E.Cho'	'MATH27500'	
+'E.Cho'	'STAT11000'	
+'E.Cho'	'PHYS10000'	
+'Angin'	'ENG400'	
+'Angin'	'ENG320'	
+'Angin'	'COM10000'	
+'Angin'	'ME30800'	
+'Angin'	'CS448'	
+'Angin'	'HIS21000'	
+'Angin'	'MATH27500'	
+'Angin'	'STAT11000'	
+'Angin'	'PHYS10000'	
+
+SQL> Error: No attribute named SNUM
+
+SQL> Error: No attribute named SNUM
+
+SQL> Error: Foreign key constraints violated!
+
+SQL> Tuple inserted successfully
+
+SQL> Error: Primary key not unique
+
+SQL> STUDENT_NUM	CLASS_NAME	
+14181	'CS448'	
+14181	'MATH27500'	
+14181	'STAT11000'	
+14181	'ENG400'	
+
+SQL> FNAME	
+
+SQL> 2 rows affected
+
+SQL> 1 row affected
+
+SQL> CNAME	MEETS_AT	ROOM	FACULTY_ID	
+'ENG400'	'8:30'	'U003'	1040	
+'ENG320'	'10:30'	'R128'	1040	
+'COM10000'	'12:30'	'L108'	1040	
+'ME30800'	'12:00'	'R128'	1020	
+'CS448'	'11:00'	'R128'	1010	
+'HIS21000'	'11:00'	'L108'	1040	
+'MATH27500'	'15:30'	'L108'	1050	
+'STAT11000'	'13:00'	'R128'	1050	
+'PHYS10000'	'14:00'	'U003'	1010	
+
+SQL> 9 rows affected
+
+SQL> CNAME	MEETS_AT	ROOM	FACULTY_ID	
+'ENG400'	'12:00'	'U003'	1040	
+'ENG320'	'12:00'	'R128'	1040	
+'COM10000'	'12:00'	'L108'	1040	
+'ME30800'	'12:00'	'R128'	1020	
+'CS448'	'12:00'	'R128'	1010	
+'HIS21000'	'12:00'	'L108'	1040	
+'MATH27500'	'12:00'	'L108'	1050	
+'STAT11000'	'12:00'	'R128'	1050	
+'PHYS10000'	'12:00'	'U003'	1010	
+
+SQL> Table created successfully
+
+SQL> Error: Attributes type not equal
+
+SQL> Tuple inserted successfully
+
+SQL> Tuple inserted successfully
+
+SQL> Error: Authorization failure
+
+SQL> 
+SQL> DEPARTMENT
+FACULTY
+STUDENT
+CLASS
+ENROLLED
+GRADE
+
+SQL> SNAME -- char(32)
+SLEVEL -- char(12) -- SLEVEL=='JR' || SLEVEL=='SR' || SLEVEL=='SO' || SLEVEL=='FR'
+
+SQL> DNAME -- char(32)
+LOCATION -- char(32)
+
+SQL> FID -- int -- primary key -- FID!=0
+FNAME -- char(32)
+DEPT -- int -- foreign key references DEPARTMENT(DEPTID)
+
+SQL> Error: Authorization failure
+
+SQL> Error: Authorization failure
+
+SQL> STU_NUM	CLASSNAME	GRADE	
+14181	'ENG400'	'A'	
+80161	'ENG400'	'B'	
+
+SQL> SNAME	SLEVEL	
+'Jack'	'SO'	
+'Smith'	'FR'	
+'Banks'	'SR'	
+'M.Lee'	'SO'	
+'Bale'	'JR'	
+'Lim'	'SR'	
+'Sharon'	'FR'	
+'Johnson'	'JR'	
+'E.Cho'	'JR'	
+'Angin'	'SR'	
+
+SQL> Error: No attribute named SNUM
+
+SQL> Error: No attribute named DEPTID
+
+SQL> 
+SQL> STU_NUM	CLASSNAME	GRADE	
+14181	'ENG400'	'A'	
+80161	'ENG400'	'B'	
+
+SQL> 2 rows affected
+
+SQL> STU_NUM	CLASSNAME	GRADE	
+
+SQL> Table dropped successfully
+
+SQL> DEPARTMENT
+FACULTY
+STUDENT
+CLASS
+ENROLLED
+
+SQL> Error: No table named GRADE
+
+SQL> Subschema created successfully
+
+SQL> User created successfully
+
+SQL> 2 rows affected
+
+SQL> DEPTID	
+11	
+22	
+
+SQL> SNAME	
+'Smith'	
+'M.Lee'	
+'Bale'	
+'Sharon'	
+'Johnson'	
+'E.Cho'	
+'Angin'	
+
+SQL> 
+SQL> SNAME -- char(32)
+SLEVEL -- char(12) -- SLEVEL=='JR' || SLEVEL=='SR' || SLEVEL=='SO' || SLEVEL=='FR'
+AGE -- int -- AGE>16
+
+SQL> Error: No table named GRADE
+
+SQL> SNAME	SLEVEL	AGE	
+'Jack'	'SO'	17	
+'Smith'	'FR'	21	
+'Banks'	'SR'	18	
+'M.Lee'	'SO'	22	
+'Bale'	'JR'	22	
+'Lim'	'SR'	19	
+'Sharon'	'FR'	22	
+'Johnson'	'JR'	27	
+'E.Cho'	'JR'	27	
+'Angin'	'SR'	25	
+
+SQL> FID	FNAME	DEPT	
+1030	'Guzaldo'	1	
+1040	'Boling'	44	
+1050	'Mason'	11	
+1060	'Zwink'	22	
+1070	'Walton'	1	
+1080	'Teach'	1	
+1090	'Jason'	1	
+
+SQL> FID	FNAME	DEPT	
+1010	'Layton'	11	
+1050	'Mason'	11	
+1060	'Zwink'	22	
+1070	'Walton'	1	
+1080	'Teach'	1	
+1090	'Jason'	1	
+
+SQL> FID	FNAME	DEPT	
+1010	'Layton'	11	
+1020	'Jungles'	22	
+1030	'Guzaldo'	1	
+1060	'Zwink'	22	
+1070	'Walton'	1	
+1080	'Teach'	1	
+1090	'Jason'	1	
+
+SQL> STUDENT_NUM	CLASS_NAME	
+14181	'CS448'	
+14181	'MATH27500'	
+12341	'ENG400'	
+12341	'MATH27500'	
+80161	'ENG400'	
+80161	'ENG320'	
+80161	'HIS21000'	
+80161	'STAT11000'	
+14181	'STAT11000'	
+12341	'COM10000'	
+12341	'HIS21000'	
+57651	'PHYS10000'	
+57651	'ENG320'	
+57651	'COM10000'	
+14181	'ENG400'	
+
+SQL> 

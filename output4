@@ -1,0 +1,39 @@
+
+SQL> STU_NUM	CLASSNAME	GRADE	
+14181	'ENG400'	'A'	
+80161	'ENG400'	'B'	
+
+SQL> 2 rows affected
+
+SQL> STU_NUM	CLASSNAME	GRADE	
+
+SQL> Table dropped successfully
+
+SQL> DEPARTMENT
+FACULTY
+STUDENT
+CLASS
+ENROLLED
+
+SQL> Error: No table named GRADE
+
+SQL> Subschema created successfully
+
+SQL> User created successfully
+
+SQL> 2 rows affected
+
+SQL> DEPTID	
+11	
+22	
+
+SQL> SNAME	
+'Smith'	
+'M.Lee'	
+'Bale'	
+'Sharon'	
+'Johnson'	
+'E.Cho'	
+'Angin'	
+
+SQL> 

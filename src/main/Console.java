@@ -1,14 +1,10 @@
 package main;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-import net.sf.jsqlparser.statement.create.table.CreateTable;
-import mysql.Attribute;
 import mysql.Command;
 import mysql.CreateTableCommand;
 import mysql.DBManager;
@@ -22,7 +18,6 @@ import mysql.QuitCommand;
 import mysql.Schema;
 import mysql.SelectCommand;
 import mysql.Table;
-import mysql.Tuple;
 import mysql.UpdateCommand;
 import mysql.User;
 import mysql.User.Type;
